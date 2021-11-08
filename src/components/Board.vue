@@ -25,10 +25,10 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-	name: 'Home',
-	components: {},
-	data() {
+	setup() {
 		return {}
 	},
 })
 </script>
+
+<style scoped></style>
