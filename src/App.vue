@@ -4,7 +4,7 @@
 			<Header />
 			<main>
 				<!-- 레프트메뉴 -->
-				<div :style="{ gridColumn: '1/2' }">dd</div>
+				<left-menu :style="{ gridColumn: '1/2' }" />
 				<router-view :style="{ gridColumn: '2/2' }" />
 			</main>
 		</v-main>
@@ -13,12 +13,14 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Header from './components/Header.vue'
+import Header from '@/components/Header.vue'
+import LeftMenu from '@/components/LeftMenu.vue'
 
 export default defineComponent({
 	name: 'App',
 	components: {
 		Header,
+		LeftMenu,
 	},
 })
 </script>

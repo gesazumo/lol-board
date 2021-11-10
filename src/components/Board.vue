@@ -1,5 +1,5 @@
 <template>
-	<article class="article">
+	<section>
 		<table>
 			<thead>
 				<th :style="{ width: '50%' }">제목</th>
@@ -18,7 +18,7 @@
 				</tr>
 			</tbody>
 		</table>
-	</article>
+	</section>
 </template>
 
 <script lang="ts">

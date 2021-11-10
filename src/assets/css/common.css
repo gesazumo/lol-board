@@ -51,3 +51,24 @@ nav {
     display: grid;
     grid-template-columns: repeat(5, 80px)
 }
+
+.article-header {
+    display: flex;
+    justify-content: space-between;
+    border: 1px dashed slategray;
+}
+
+.col-hr {
+    border: 1px dashed slategray;
+    width: 0.1px;
+}
+
+.best {
+    width: 45%;
+    padding: 10px;
+
+}
+.best-row {
+    display: grid;
+    grid-template-columns: 30px 2fr 1fr 30px;
+}
