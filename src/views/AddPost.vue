@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<TitleForm v-model:title="title"></TitleForm>
+		<TitleForm v-model="title"></TitleForm>
 	</div>
 </template>
 

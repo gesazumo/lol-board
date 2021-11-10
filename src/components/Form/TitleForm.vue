@@ -1,38 +1,51 @@
 <template>
 	<div>
 		<label>제목</label>
-		<input :value="title" @input="handleInput" />
+		{{ validate }}
+		<input :value="modelValue" @input="handleInput" :class="inputStyle" />
+		<div>{{ errorMsg }}</div>
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, watch } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 
 export default defineComponent({
 	props: {
-		title: String,
+		modelValue: {
+			type: String,
+			default: '',
+		},
+		errorMsg: {
+			type: String,
+			default: '다시입력하세요',
+		},
 	},
-	setup(props: { title: any }, { emit }) {
-		console.log(props.title)
-
-		const handleInput = (event: any): void => {
-			console.log(event.target.value)
-			emit('update:title', event.target.value)
-		}
-
-		watch(props.title, () => {
-			console.log('박뀐다')
+	setup(props, { emit }) {
+		const validate = computed(() => {
+			return props.modelValue?.length < 10
 		})
 
+		const inputStyle = ref('')
+
+		const handleInput = (event: any): void => {
+			if (validate.value) {
+				// 통과
+				inputStyle.value = ''
+			} else {
+				// 에러
+				inputStyle.value = 'input-error'
+			}
+			emit('update:modelValue', event.target.value)
+		}
+
 		return {
+			validate,
+			inputStyle,
 			handleInput,
 		}
 	},
 })
 </script>
 
-<style>
-.error {
-	border: 0.1px solid red;
-}
-</style>
+<style></style>
