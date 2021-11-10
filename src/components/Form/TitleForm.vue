@@ -1,32 +1,30 @@
 <template>
 	<div>
 		<label>제목</label>
-		<input :value="modelValue" @input="handleInput" />
+		<input :value="title" @input="handleInput" />
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs } from 'vue'
+import { defineComponent, watch } from 'vue'
 
 export default defineComponent({
-	setup(props, { emit }) {
-		const { modelValue } = toRefs(props)
+	props: {
+		title: String,
+	},
+	setup(props: { title: any }, { emit }) {
+		console.log(props.title)
 
 		const handleInput = (event: any): void => {
-			emit('update:modelValue', event.target.value)
+			console.log(event.target.value)
+			emit('update:title', event.target.value)
 		}
 
-		// const validate = computed(() => {
-		// 	return false
-		// })
-
-		// const inputStyle = computed(() => {
-		// 	return validate ? 'error' : ''
-		// })
+		watch(props.title, () => {
+			console.log('박뀐다')
+		})
 
 		return {
-			// inputStyle,
-			modelValue,
 			handleInput,
 		}
 	},
