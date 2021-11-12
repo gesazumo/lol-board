@@ -79,11 +79,33 @@ nav {
   width: 45%;
   padding: 10px;
 }
+
 .best-row {
   display: grid;
   grid-template-columns: 30px 2fr 1fr 30px;
 }
 
+.input-div {
+  display: grid;
+  grid-template-columns: 50px auto;
+}
+/* 
+input:focus {
+  outline: none !important;
+  border: 0px solid rgba(0, 0, 0, 0);
+} */
+
+.input-init {
+  border: 1px solid black;
+}
+.input-pass {
+  border: 1px solid forestgreen;
+}
 .input-error {
-  border: 0.1px solid red;
+  border: 1px solid red;
+}
+
+.input-error-msg {
+  font-size: 5px;
+  color: red;
 }
