@@ -32,23 +32,20 @@ export default defineComponent({
 	setup(props, { emit }) {
 		const internalInstance =
 			getCurrentInstance()?.appContext.config.globalProperties
-		const errorMsg = ref('')
-
 		const { isEmpty, isLong } = useValidation()
-
+		const errorMsg = ref('')
 		const inputStyle = ref('')
 
 		const handleInput = (event: any): void => {
 			if (isEmpty(event.target.value)) {
 				errorMsg.value = internalInstance?.$emptyMsg
-				inputStyle.value = 'input-pass'
+				inputStyle.value = 'input-error'
 			} else if (isLong(event.target.value, 5)) {
 				errorMsg.value = internalInstance?.$longMsg(5)
-				console.log('너무길어')
-			} else {
-				// 에러
-				errorMsg.value = ''
 				inputStyle.value = 'input-error'
+			} else {
+				errorMsg.value = ''
+				inputStyle.value = 'input-pass'
 			}
 			emit('update:modelValue', event.target.value)
 		}
