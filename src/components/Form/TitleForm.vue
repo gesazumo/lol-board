@@ -8,14 +8,17 @@
 				@input="handleInput"
 				:class="inputStyle"
 			/>
-			<div class="input-error-msg" v-if="errorMsg">{{ errorMsg }}</div>
+			<div class="input-error-msg" v-if="errorMessage">
+				{{ errorMessage }}
+			</div>
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, getCurrentInstance, ref } from 'vue'
+import { defineComponent } from 'vue'
 import useValidation from '@/composable/useValidation'
+import useForm from '@/composable/useForm'
 
 export default defineComponent({
 	props: {
@@ -30,28 +33,17 @@ export default defineComponent({
 		}
 	},
 	setup(props, { emit }) {
-		const internalInstance =
-			getCurrentInstance()?.appContext.config.globalProperties
 		const { isEmpty, isLong } = useValidation()
-		const errorMsg = ref('')
-		const inputStyle = ref('')
 
-		const handleInput = (event: any): void => {
-			if (isEmpty(event.target.value)) {
-				errorMsg.value = internalInstance?.$emptyMsg
-				inputStyle.value = 'input-error'
-			} else if (isLong(event.target.value, 5)) {
-				errorMsg.value = internalInstance?.$longMsg(5)
-				inputStyle.value = 'input-error'
-			} else {
-				errorMsg.value = ''
-				inputStyle.value = 'input-pass'
-			}
-			emit('update:modelValue', event.target.value)
-		}
+		const { errorMessage, inputStyle, handleInput } = useForm(
+			emit,
+			10,
+			isEmpty,
+			isLong,
+		)
 
 		return {
-			errorMsg,
+			errorMessage,
 			inputStyle,
 			handleInput,
 		}

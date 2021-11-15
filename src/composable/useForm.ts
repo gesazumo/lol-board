@@ -1,24 +1,36 @@
-const useForm = () => {
-	const internalInstance =
-		getCurrentInstance()?.appContext.config.globalProperties
-	const errorMsg = ref('')
+import { validationFuncType } from '@/interface'
+import { ref } from 'vue'
 
-	const { isEmpty, isLong } = useValidation()
-
+const useForm = (
+	emit: any,
+	maxLength: number,
+	...validationFucs: validationFuncType[]
+) => {
+	const errorMessage = ref('')
 	const inputStyle = ref('')
 
 	const handleInput = (event: any): void => {
-		if (isEmpty(event.target.value)) {
-			errorMsg.value = internalInstance?.$emptyMsg
-			inputStyle.value = 'input-error'
-		} else if (isLong(event.target.value, 5)) {
-			errorMsg.value = internalInstance?.$longMsg(5)
-			inputStyle.value = 'input-error'
-		} else {
-			errorMsg.value = ''
+		for (let i = 0; i < validationFucs.length; i++) {
+			const { error, errorMsg } = validationFucs[i](
+				event.target.value,
+				maxLength,
+			)
+			if (error) {
+				console.log(errorMsg)
+				errorMessage.value = errorMsg
+				inputStyle.value = 'input-error'
+				break
+			}
+			errorMessage.value = ''
 			inputStyle.value = 'input-pass'
 		}
 		emit('update:modelValue', event.target.value)
+	}
+
+	return {
+		errorMessage,
+		inputStyle,
+		handleInput,
 	}
 }
 

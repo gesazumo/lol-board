@@ -10,7 +10,7 @@ import constant from './constant'
 
 loadFonts()
 
-const app = createApp(App)
+export const app = createApp(App)
 
 Object.keys(constant).forEach(key => {
 	app.config.globalProperties[key] = constant[key]
