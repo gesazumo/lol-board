@@ -2,6 +2,7 @@ import { validationFuncType } from '@/interface'
 import { ref } from 'vue'
 
 const useForm = (
+	name: string,
 	emit: any,
 	maxLength: number,
 	...validationFucs: validationFuncType[]
@@ -21,11 +22,13 @@ const useForm = (
 				errorMessage.value = errorMsg
 				inputStyle.value = 'input-error'
 				break
+			} else {
+				isError = false
 			}
 			errorMessage.value = ''
 			inputStyle.value = 'input-pass'
-			emit('form-error', isError)
 		}
+		emit('form-error', { name, error: isError })
 		emit('update:modelValue', event.target.value)
 	}
 

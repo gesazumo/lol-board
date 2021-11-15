@@ -33,6 +33,7 @@ export default defineComponent({
 		const { isEmpty, isLong } = useValidation()
 
 		const { errorMessage, inputStyle, handleInput } = useForm(
+			'body',
 			emit,
 			50,
 			isEmpty,
