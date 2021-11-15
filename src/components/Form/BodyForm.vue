@@ -1,14 +1,15 @@
 <template>
 	<div class="input-div">
-		<label :style="{ gridColumn: '1/2' }">제목</label>
+		<label :style="{ gridColumn: '1/2' }">내용</label>
 		<div :style="{ gridColumn: '2/2' }">
-			<input
+			<textarea
 				class="input-init"
-				:style="{ width: '100%' }"
+				:style="{ width: '100%', height: '300px' }"
 				:value="modelValue"
 				@input="handleInput"
 				:class="inputStyle"
 			/>
+			<div>{{ modelValue.length }}/50</div>
 			<div class="input-error-msg" v-if="errorMessage">
 				{{ errorMessage }}
 			</div>
@@ -33,7 +34,7 @@ export default defineComponent({
 
 		const { errorMessage, inputStyle, handleInput } = useForm(
 			emit,
-			10,
+			50,
 			isEmpty,
 			isLong,
 		)

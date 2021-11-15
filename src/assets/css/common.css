@@ -87,7 +87,8 @@ nav {
 
 .input-div {
   display: grid;
-  grid-template-columns: 50px auto;
+  grid-template-columns: 50px 1fr;
+  padding: 10px;
 }
 /* 
 input:focus {
@@ -99,12 +100,26 @@ input:focus {
   border: 1px solid var(--input-bg-color);
 }
 
+textarea.input-init {
+  border: 1px solid black;
+}
+
 input.input-init {
   border: 1px solid black;
 }
+
 input.input-pass {
   border: 1px solid forestgreen;
 }
+
+textarea.input-pass {
+  border: 1px solid forestgreen;
+}
+
+textarea.input-error {
+  border: 1px solid red;
+}
+
 input.input-error {
   border: 1px solid red;
 }
@@ -112,4 +127,32 @@ input.input-error {
 .input-error-msg {
   font-size: 5px;
   color: red;
+}
+
+textarea {
+  width: "100%";
+}
+
+button.small {
+  height: 28px;
+  min-width: 48px;
+  font-size: 12px;
+  padding: 0 10px;
+}
+
+button.large {
+  height: 48px;
+  width: 160px;
+  font-size: 18px;
+  padding: 0 24px;
+}
+
+button.primary {
+  background: #fbc00a !important;
+  color: #fff !important;
+}
+
+button.primary:hover {
+  background: #dd3300 !important;
+  color: #fff !important;
 }
