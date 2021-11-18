@@ -8,6 +8,7 @@
 				:value="modelValue"
 				@input="handleInput"
 				:class="inputStyle"
+				maxlength="10"
 			/>
 			<div class="input-error-msg" v-if="errorMessage">
 				{{ errorMessage }}

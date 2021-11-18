@@ -1,5 +1,5 @@
 import { validationFuncType } from '@/interface'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 const useForm = (
 	name: string,
@@ -9,6 +9,10 @@ const useForm = (
 ) => {
 	const errorMessage = ref('')
 	const inputStyle = ref('')
+
+	onMounted(() => {
+		emit('form-error', { name, error: false })
+	})
 
 	const handleInput = (event: any): void => {
 		let isError = false

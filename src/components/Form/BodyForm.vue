@@ -7,6 +7,7 @@
 				:style="{ width: '100%', height: '300px' }"
 				:value="modelValue"
 				@input="handleInput"
+				maxlength="50"
 				:class="inputStyle"
 			/>
 			<div>{{ modelValue.length }}/50</div>
