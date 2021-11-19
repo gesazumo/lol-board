@@ -156,3 +156,10 @@ button.primary:hover {
   background: #dd3300 !important;
   color: #fff !important;
 }
+
+a.button {
+  border: 1px solid forestgreen;
+  padding: 5px;
+  background-color: burlywood;
+  float: right;
+}

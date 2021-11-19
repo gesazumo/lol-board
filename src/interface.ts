@@ -17,7 +17,9 @@ export interface validationFuncType {
 
 export interface post {
 	title: string,
-	body: string
+	body: string,
+	like: number,
+	writer: string
 }
 
 

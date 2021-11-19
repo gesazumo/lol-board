@@ -33,9 +33,12 @@ export default defineComponent({
 			const post = {
 				title: this.title,
 				body: this.body,
+				like: 0,
+				writer: '쓰니',
 			}
 			const result = await createPost(post)
 			console.log(result)
+			this.$router.push({ name: 'Home' })
 		},
 		formCheck(validation: { name: string; error: boolean }) {
 			const index = this.validations.findIndex(
