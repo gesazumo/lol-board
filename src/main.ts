@@ -7,6 +7,7 @@ import { loadFonts } from './plugins/webfontloader'
 
 import '@/assets/css/common.css'
 import constant from './constant'
+import utils from './util'
 
 loadFonts()
 
@@ -14,6 +15,10 @@ export const app = createApp(App)
 
 Object.keys(constant).forEach(key => {
 	app.config.globalProperties[key] = constant[key]
+})
+
+Object.keys(utils).forEach(key => {
+	app.config.globalProperties[key] = utils[key]
 })
 
 app.use(router).use(store).use(vuetify).mount('#app')

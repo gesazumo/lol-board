@@ -10,16 +10,12 @@
 				<th :style="{ width: '5%' }">좋아요</th>
 			</thead>
 			<tbody>
-				<tr v-for="(data, index) in filterdDataList" :key="data._id">
+				<tr v-for="(data, index) in result" :key="data._id">
 					<td>{{ index }}</td>
 					<td>
 						<a
-							@click="
-								$router.push({
-									name: 'ViewPost',
-									params: { id: data._id },
-								})
-							"
+							class="router-default"
+							@click="goView($event, data._id)"
 							>{{ data.title }}</a
 						>
 					</td>
@@ -40,15 +36,26 @@
 
 <script lang="ts">
 import useGetData from '@/composable/useGetData'
-import useDateFilter from '@/composable/useDateFilter'
+
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-	setup() {
-		const { dataList } = useGetData('/boards')
-		const { filterdDataList } = useDateFilter(dataList)
+	methods: {
+		goView(event: any, id: string) {
+			// event.target.classList.add('router-visited')
+			// event.target.classList.remove('router-default')
 
-		return { dataList, filterdDataList }
+			console.log(event.target)
+			this.$router.push({
+				name: 'ViewPost',
+				params: { id },
+			})
+		},
+	},
+	setup() {
+		const { result } = useGetData('/boards')
+
+		return { result }
 	},
 })
 </script>

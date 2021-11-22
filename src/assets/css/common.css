@@ -163,3 +163,19 @@ a.button {
   background-color: burlywood;
   float: right;
 }
+
+a.router-default:hover {
+  background-color: brown;
+}
+
+a.router-default {
+  background-color: green;
+}
+
+a.router-visited {
+  background-color: #f2994a;
+}
+
+.router-link-active {
+  background-color: brown;
+}

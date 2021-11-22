@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import moment from 'moment'
 
 const useDateFilter = (dataList: any) => {
-	const filterdDataList = computed(() => {
+	const filterdResult = computed(() => {
 		return dataList.value.map((data: any) => {
 			console.log(data)
 
@@ -17,7 +17,7 @@ const useDateFilter = (dataList: any) => {
 	})
 
 	return {
-		filterdDataList,
+		filterdResult,
 	}
 }
 

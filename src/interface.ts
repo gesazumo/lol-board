@@ -8,7 +8,7 @@ export interface constantType {
 }
 
 export interface utilType {
-	[key: string]: string | number | validationFuncType
+	[key: string]: Function
 }
 
 export interface validationFuncType {
@@ -16,10 +16,9 @@ export interface validationFuncType {
 }
 
 export interface post {
-	title: string,
-	body: string,
-	like: number,
+	title: string
+	body: string
+	like: number
 	writer: string
+	createDate?: string
 }
-
-

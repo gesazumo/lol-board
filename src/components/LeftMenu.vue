@@ -1,7 +1,9 @@
 <template>
 	<aside>
-		<div>asdfsdf</div>
-		<div>asdfsdf</div>
+		<div>
+			<router-link :to="{ name: 'Home' }">게시판</router-link>
+		</div>
+
 		<div>asdfsdf</div>
 		<div>asdfsdf</div>
 		<div>asdfsdf</div>

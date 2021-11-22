@@ -2,11 +2,11 @@ import { instance } from '@/api'
 import { onMounted, ref } from 'vue'
 
 const useGetData = (url: string) => {
-	const dataList = ref([])
+	const result = ref()
 
 	const getDataFuction = async () => {
 		const { data } = await instance.get(url)
-		dataList.value = data
+		result.value = data
 	}
 
 	onMounted(() => {
@@ -14,7 +14,7 @@ const useGetData = (url: string) => {
 	})
 
 	return {
-		dataList,
+		result,
 	}
 }
 
