@@ -1,12 +1,20 @@
 import { instance } from '@/api'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, Ref } from 'vue'
+import request, { AxiosError } from 'axios'
 
 const useGetData = (url: string) => {
 	const result = ref()
+	const error: Ref<AxiosError | null> = ref(null)
 
 	const getDataFuction = async () => {
-		const { data } = await instance.get(url)
-		result.value = data
+		try {
+			const { data } = await instance.get(url)
+			result.value = data
+		} catch (err) {
+			if (request.isAxiosError(err)) {
+				error.value = err
+			}
+		}
 	}
 
 	onMounted(() => {
@@ -15,6 +23,7 @@ const useGetData = (url: string) => {
 
 	return {
 		result,
+		error,
 	}
 }
 
