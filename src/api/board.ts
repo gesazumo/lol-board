@@ -1,22 +1,22 @@
 import { apiFunction } from '@/interface'
 import { instance } from '.'
 
-export const createBoard: apiFunction = body => {
+export const createPost: apiFunction = body => {
 	return instance.post('/boards', body)
 }
 
-export const getBoardList: apiFunction = () => {
+export const getBoard: apiFunction = () => {
 	return instance.get('/boards')
 }
 
-export const getBoard: apiFunction = id => {
+export const getPost: apiFunction = id => {
 	return instance.get(`/boards/${id}`)
 }
 
-export const getPreviousBoard: apiFunction = id => {
+export const getPreviousPost: apiFunction = id => {
 	return instance.get(`/boards/${id}/previous`)
 }
 
-export const getNextBoard: apiFunction = id => {
+export const getNextPost: apiFunction = id => {
 	return instance.get(`/boards/${id}/next`)
 }

@@ -1,15 +1,15 @@
 import { onMounted, ref, Ref } from 'vue'
 import request, { AxiosError } from 'axios'
-import { apiFunction } from '@/interface'
+import { getBoard } from '@/api/board'
 
-const useGetData = (api: apiFunction, ...params: any) => {
-	const result = ref()
+const useBoard = () => {
+	const board = ref()
 	const error: Ref<AxiosError | null> = ref(null)
 
 	const getDataFuction = async () => {
 		try {
-			const { data } = await api(params)
-			result.value = data
+			const { data } = await getBoard()
+			board.value = data
 			error.value = null
 		} catch (err) {
 			if (request.isAxiosError(err)) {
@@ -23,9 +23,9 @@ const useGetData = (api: apiFunction, ...params: any) => {
 	})
 
 	return {
-		result,
+		board,
 		error,
 	}
 }
 
-export default useGetData
+export default useBoard

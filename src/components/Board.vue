@@ -1,6 +1,7 @@
 <template>
 	<section>
-		<table>
+		{{ error }}
+		<table v-if="board">
 			<thead>
 				<th :style="{ width: '10%' }">번호</th>
 				<th :style="{ width: '40%' }">제목</th>
@@ -10,7 +11,7 @@
 				<th :style="{ width: '5%' }">좋아요</th>
 			</thead>
 			<tbody>
-				<tr v-for="(data, index) in result" :key="data._id">
+				<tr v-for="(data, index) in board" :key="data._id">
 					<td>{{ index }}</td>
 					<td>
 						<a
@@ -34,31 +35,21 @@
 	</section>
 </template>
 
-<script lang="ts">
-import { getBoardList } from '@/api/board'
-import useGetData from '@/composable/useGetData'
+<script lang="ts" setup>
+import { defineProps, withDefaults, toRefs, Ref } from 'vue'
+import { post } from '@/interface'
+import { AxiosError } from 'axios'
 
-import { defineComponent } from 'vue'
+interface Props {
+	// eslint-disable-next-line prettier/prettier
+	board: Ref<Array<post> | null> | null,
+	error: Ref<AxiosError | null> | null
+}
 
-export default defineComponent({
-	methods: {
-		goView(event: any, id: string) {
-			// event.target.classList.add('router-visited')
-			// event.target.classList.remove('router-default')
-
-			console.log(event.target)
-			this.$router.push({
-				name: 'ViewPost',
-				params: { id },
-			})
-		},
-	},
-	setup() {
-		const { result } = useGetData(() => getBoardList())
-
-		return { result }
-	},
+const props = withDefaults(defineProps<Props>(), {
+	board: () => null,
+	error: () => null,
 })
-</script>
 
-<style scoped></style>
+const { board, error } = toRefs(props)
+</script>

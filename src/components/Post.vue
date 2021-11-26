@@ -1,5 +1,6 @@
 <template>
 	<div v-if="postData">
+		<div>{{ postData._id }}</div>
 		<div>{{ postData.title }}</div>
 		<div>{{ postData.writer }}</div>
 		<div>{{ postData.createDate }}</div>

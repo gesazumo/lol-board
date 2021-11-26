@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { getBoard, getNextBoard } from '@/api/board'
+import { getBoard, getNextPost } from '@/api/board'
 import useGetData from '@/composable/useGetData'
 import Post from '@/components/Post.vue'
 import PreviewPost from '@/components/PreviewPost.vue'
@@ -27,7 +27,7 @@ import {
 	defineComponent,
 	getCurrentInstance,
 } from '@vue/runtime-core'
-import { watch } from 'vue'
+import { watch, ref } from 'vue'
 
 import { useRoute } from 'vue-router'
 
@@ -39,7 +39,7 @@ export default defineComponent({
 	setup() {
 		console.log('여깅')
 		const route = useRoute()
-		const id = route.params.id
+		const id = ref(route.params.id)
 		const internalInstance =
 			getCurrentInstance()?.appContext.config.globalProperties
 
@@ -47,13 +47,15 @@ export default defineComponent({
 			() => route.params.id,
 			() => {
 				console.log('바뀐다')
+				id.value = route.params.id
 			},
 		)
+
 		// : { result: Ref<post>; error: Ref<AxiosError | null> }
-		const { result, error: getBoardError } = useGetData(() => getBoard(id))
+		const { result, error: getBoardError } = useGetData(getBoard, id)
 
 		const { result: nextResult, error: getNextBoardError } = useGetData(
-			() => getNextBoard(id),
+			() => getNextPost(id.value),
 		)
 
 		const postData = computed(() => {
@@ -67,7 +69,7 @@ export default defineComponent({
 			}
 		})
 
-		return { postData, getBoardError, nextResult, getNextBoardError }
+		return { id, postData, getBoardError, nextResult, getNextBoardError }
 	},
 })
 </script>

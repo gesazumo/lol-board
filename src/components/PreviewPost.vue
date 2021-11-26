@@ -12,14 +12,14 @@
 </template>
 
 <script setup lang="ts">
+import { defineProps, withDefaults, toRefs } from 'vue'
+import { post } from '@/interface'
+
 interface Props {
 	// eslint-disable-next-line prettier/prettier
 	postData: post | null,
 	flagText: string
 }
-
-import { defineProps, withDefaults, toRefs } from 'vue'
-import { post } from '@/interface'
 
 const props = withDefaults(defineProps<Props>(), {
 	postData: () => null,
