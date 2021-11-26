@@ -16,7 +16,12 @@
 					<td>
 						<a
 							class="router-default"
-							@click="goView($event, data._id)"
+							@click="
+								$router.push({
+									name: 'ViewPost',
+									params: { id: data._id },
+								})
+							"
 							>{{ data.title }}</a
 						>
 					</td>

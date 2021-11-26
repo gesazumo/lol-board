@@ -6,7 +6,7 @@ export interface errorType {
 }
 
 export interface constantType {
-	[key: string]: string | number | Function
+	[key: string]: string | number | Function | Object
 }
 
 export interface utilType {
