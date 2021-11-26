@@ -10,18 +10,14 @@
 			/>
 		</div>
 
-		<div v-if="postData">
-			<div>{{ postData.title }}</div>
-			<div>{{ postData.writer }}</div>
-			<div>{{ postData.createDate }}</div>
-			<div>{{ postData.body }}</div>
-		</div>
+		<Post :postData="postData" />
 	</div>
 </template>
 
 <script lang="ts">
 import { getBoard, getNextBoard } from '@/api/board'
 import useGetData from '@/composable/useGetData'
+import Post from '@/components/Post.vue'
 import {
 	computed,
 	defineComponent,
@@ -31,6 +27,9 @@ import {
 import { useRoute } from 'vue-router'
 
 export default defineComponent({
+	components: {
+		Post,
+	},
 	setup() {
 		const route = useRoute()
 		const id = route.params.id

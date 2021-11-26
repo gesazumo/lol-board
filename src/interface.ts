@@ -21,7 +21,7 @@ export interface validationFuncType {
 	(value: string, maxLength?: number): errorType
 }
 
-export interface board {
+export interface post {
 	_id?: string
 	title: string
 	body: string
