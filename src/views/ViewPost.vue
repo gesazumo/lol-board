@@ -1,6 +1,14 @@
 <template>
 	<div>
-		{{ getBoardError }}
+		<div v-if="getBoardError">
+			<error-comp
+				:errorMsg="
+					getBoardError.response.status == 404
+						? '없는게시물 입니다.'
+						: '서버에러!!'
+				"
+			/>
+		</div>
 
 		<div v-if="postData">
 			<div>{{ postData.title }}</div>
@@ -12,15 +20,13 @@
 </template>
 
 <script lang="ts">
+import { getBoard, getNextBoard } from '@/api/board'
 import useGetData from '@/composable/useGetData'
-import { post } from '@/interface'
 import {
 	computed,
 	defineComponent,
 	getCurrentInstance,
-	Ref,
 } from '@vue/runtime-core'
-import { AxiosError } from 'axios'
 
 import { useRoute } from 'vue-router'
 
@@ -31,11 +37,11 @@ export default defineComponent({
 		const internalInstance =
 			getCurrentInstance()?.appContext.config.globalProperties
 
-		const {
-			result,
-			error: getBoardError,
-		}: { result: Ref<post>; error: Ref<AxiosError | null> } = useGetData(
-			`/boards/${id}`,
+		// : { result: Ref<post>; error: Ref<AxiosError | null> }
+		const { result, error: getBoardError } = useGetData(() => getBoard(id))
+
+		const { result: nextResult, error: getNextBoardError } = useGetData(
+			() => getNextBoard(id),
 		)
 
 		const postData = computed(() => {
@@ -49,7 +55,7 @@ export default defineComponent({
 			}
 		})
 
-		return { postData, getBoardError }
+		return { postData, getBoardError, nextResult, getNextBoardError }
 	},
 })
 </script>

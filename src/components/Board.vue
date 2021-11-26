@@ -35,6 +35,7 @@
 </template>
 
 <script lang="ts">
+import { getBoardList } from '@/api/board'
 import useGetData from '@/composable/useGetData'
 
 import { defineComponent } from 'vue'
@@ -53,7 +54,7 @@ export default defineComponent({
 		},
 	},
 	setup() {
-		const { result } = useGetData('/boards')
+		const { result } = useGetData(() => getBoardList())
 
 		return { result }
 	},

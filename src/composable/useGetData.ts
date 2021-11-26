@@ -1,15 +1,16 @@
-import { instance } from '@/api'
 import { onMounted, ref, Ref } from 'vue'
 import request, { AxiosError } from 'axios'
+import { apiFunction } from '@/interface'
 
-const useGetData = (url: string) => {
+const useGetData = (api: apiFunction) => {
 	const result = ref()
 	const error: Ref<AxiosError | null> = ref(null)
 
 	const getDataFuction = async () => {
 		try {
-			const { data } = await instance.get(url)
+			const { data } = await api()
 			result.value = data
+			error.value = null
 		} catch (err) {
 			if (request.isAxiosError(err)) {
 				error.value = err

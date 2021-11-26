@@ -11,7 +11,7 @@
 import { defineComponent } from 'vue'
 import TitleForm from '@/components/Form/TitleForm.vue'
 import BodyForm from '@/components/Form/BodyForm.vue'
-import { createPost } from '@/api/board'
+import { createBoard } from '@/api/board'
 
 export default defineComponent({
 	components: {
@@ -36,7 +36,7 @@ export default defineComponent({
 				like: 0,
 				writer: '쓰니',
 			}
-			const result = await createPost(post)
+			const result = await createBoard(post)
 			console.log(result)
 			this.$router.push({ name: 'Home' })
 		},
