@@ -1,17 +1,17 @@
 <template>
 	<div>
 		<!-- 에러도 안으로 옮겨야하나?? -->
-		<div v-if="getBoardError">
+		<div v-if="error">
 			<error-comp
 				:errorMsg="
-					getBoardError.response.status == 404
+					error.response.status == 404
 						? '없는게시물 입니다.'
 						: '서버에러!!'
 				"
 			/>
 		</div>
 
-		<Post :postData="postData" />
+		<Post :postData="post" />
 		<PreviewPost :postData="nextResult" flagText="다음글" />
 		<PreviewPost :postData="nextResult" flagText="이전글" />
 	</div>
@@ -22,7 +22,7 @@ import usePost from '@/composable/usePost'
 import Post from '@/components/Post.vue'
 import PreviewPost from '@/components/PreviewPost.vue'
 import { defineComponent } from '@vue/runtime-core'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import useGetData from '@/composable/useGetData'
 import { getNextPost } from '@/api/board'
@@ -35,6 +35,7 @@ export default defineComponent({
 	setup() {
 		const route = useRoute()
 		const id = ref(route.params.id)
+
 		// const internalInstance =
 		// 	getCurrentInstance()?.appContext.config.globalProperties
 
@@ -42,6 +43,12 @@ export default defineComponent({
 
 		const { result: nextResult, error: getNextBoardError } = useGetData(
 			() => getNextPost(id.value),
+		)
+		watch(
+			() => route.params.id,
+			() => {
+				id.value = route.params.id
+			},
 		)
 
 		// const postData = computed(() => {

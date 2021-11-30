@@ -1,4 +1,4 @@
-import { watch, ref, Ref } from 'vue'
+import { watch, ref, Ref, onMounted } from 'vue'
 import request, { AxiosError } from 'axios'
 import { getPost } from '@/api/board'
 
@@ -18,7 +18,10 @@ const usePost = (id: Ref<string | string[]>) => {
 		}
 	}
 
-	watch(id, getDataFuction)
+	onMounted(() => {
+		getDataFuction()
+	})
+	watch(id, () => getDataFuction())
 
 	return {
 		post,
