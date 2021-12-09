@@ -4,7 +4,7 @@
 			<error-comp
 				:errorMsg="
 					error.response.status == 404
-						? '다음글이 없습니다.'
+						? `${flagText}이 없습니다.`
 						: '서버에러!!'
 				"
 			/>

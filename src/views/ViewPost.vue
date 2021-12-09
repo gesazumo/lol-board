@@ -16,7 +16,11 @@
 			:error="getNextPostError"
 			flagText="다음글"
 		/>
-		<PreviewPost :postData="nextResult" flagText="이전글" />
+		<PreviewPost
+			:postData="previewResult"
+			:error="getPreviewPostError"
+			flagText="이전글"
+		/>
 	</div>
 </template>
 
@@ -28,6 +32,7 @@ import { defineComponent } from '@vue/runtime-core'
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import useNextPost from '@/composable/useNextPost'
+import usePreviewPost from '@/composable/usePreviewPost'
 
 export default defineComponent({
 	components: {
@@ -47,8 +52,18 @@ export default defineComponent({
 
 		const { postData, error } = usePost(id)
 		const { result: nextResult, error: getNextPostError } = useNextPost(id)
+		const { result: previewResult, error: getPreviewPostError } =
+			usePreviewPost(id)
 
-		return { id, postData, error, nextResult, getNextPostError }
+		return {
+			id,
+			postData,
+			error,
+			nextResult,
+			getNextPostError,
+			previewResult,
+			getPreviewPostError,
+		}
 	},
 })
 </script>
