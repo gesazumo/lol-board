@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<!-- 에러도 안으로 옮겨야하나?? -->
 		<div v-if="error">
 			<error-comp
 				:errorMsg="
@@ -11,8 +10,12 @@
 			/>
 		</div>
 
-		<Post :postData="post" />
-		<PreviewPost :postData="nextResult" flagText="다음글" />
+		<Post :postData="postData" />
+		<PreviewPost
+			:postData="nextResult"
+			:error="getNextPostError"
+			flagText="다음글"
+		/>
 		<PreviewPost :postData="nextResult" flagText="이전글" />
 	</div>
 </template>
@@ -24,8 +27,7 @@ import PreviewPost from '@/components/PreviewPost.vue'
 import { defineComponent } from '@vue/runtime-core'
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import useGetData from '@/composable/useGetData'
-import { getNextPost } from '@/api/board'
+import useNextPost from '@/composable/useNextPost'
 
 export default defineComponent({
 	components: {
@@ -36,33 +38,17 @@ export default defineComponent({
 		const route = useRoute()
 		const id = ref(route.params.id)
 
-		// const internalInstance =
-		// 	getCurrentInstance()?.appContext.config.globalProperties
-
-		const { post, error } = usePost(id)
-
-		const { result: nextResult, error: getNextBoardError } = useGetData(
-			() => getNextPost(id.value),
-		)
 		watch(
 			() => route.params.id,
 			() => {
-				id.value = route.params.id
+				if (route.params.id) id.value = route.params.id
 			},
 		)
 
-		// const postData = computed(() => {
-		// 	if (result.value) {
-		// 		return {
-		// 			...result.value,
-		// 			createDate: internalInstance?.$yyyyMMDDHHmmss(
-		// 				result.value.createDate,
-		// 			),
-		// 		}
-		// 	}
-		// })
+		const { postData, error } = usePost(id)
+		const { result: nextResult, error: getNextPostError } = useNextPost(id)
 
-		return { id, post, error, nextResult, getNextBoardError }
+		return { id, postData, error, nextResult, getNextPostError }
 	},
 })
 </script>

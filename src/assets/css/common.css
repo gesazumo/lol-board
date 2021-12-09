@@ -179,3 +179,34 @@ a.router-visited {
 .router-link-active {
   background-color: brown;
 }
+
+.post {
+  background-color: honeydew;
+}
+
+.post .header {
+  border: 0.5px solid gray;
+  padding: 10px;
+}
+
+.post .content {
+  border-left: 0.5px solid gray;
+  border-right: 0.5px solid gray;
+  padding: 10px;
+}
+
+.post .title {
+  font-size: x-large;
+}
+
+.post .writer {
+  color: #82c0e4;
+}
+
+.post .createDate {
+  color: gray;
+}
+
+.post .body {
+  width: 100%;
+}

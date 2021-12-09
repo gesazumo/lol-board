@@ -1,15 +1,20 @@
-import { watch, ref, Ref, onMounted } from 'vue'
+import { watch, ref, Ref, onMounted, getCurrentInstance, computed } from 'vue'
 import request, { AxiosError } from 'axios'
 import { getPost } from '@/api/board'
+import { post } from '@/interface'
 
 const usePost = (id: Ref<string | string[]>) => {
-	const post = ref()
+	const internalInstance =
+		getCurrentInstance()?.appContext.config.globalProperties
+
+	const result: Ref<post | any> = ref({})
 	const error: Ref<AxiosError | null> = ref(null)
 
 	const getDataFuction = async () => {
+		console.log(id.value)
 		try {
 			const { data } = await getPost(id.value)
-			post.value = data
+			result.value = data
 			error.value = null
 		} catch (err) {
 			if (request.isAxiosError(err)) {
@@ -22,9 +27,17 @@ const usePost = (id: Ref<string | string[]>) => {
 		getDataFuction()
 	})
 	watch(id, () => getDataFuction())
+	const postData = computed(() => {
+		return {
+			...result.value,
+			createDate: internalInstance?.$yyyyMMDDHHmmss(
+				result.value.createDate,
+			),
+		}
+	})
 
 	return {
-		post,
+		postData,
 		error,
 	}
 }

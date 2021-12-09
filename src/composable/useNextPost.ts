@@ -1,15 +1,16 @@
-import { watch, ref, Ref } from 'vue'
+import { watch, ref, Ref, onMounted } from 'vue'
 import request, { AxiosError } from 'axios'
-import { getPost } from '@/api/board'
+import { getNextPost } from '@/api/board'
+import { post } from '@/interface'
 
 const useNextPost = (id: Ref<string | string[]>) => {
-	const post = ref()
+	const result: Ref<post | any> = ref({})
 	const error: Ref<AxiosError | null> = ref(null)
 
 	const getDataFuction = async () => {
 		try {
-			const { data } = await getPost(id.value)
-			post.value = data
+			const { data } = await getNextPost(id.value)
+			result.value = data
 			error.value = null
 		} catch (err) {
 			if (request.isAxiosError(err)) {
@@ -17,11 +18,14 @@ const useNextPost = (id: Ref<string | string[]>) => {
 			}
 		}
 	}
+	onMounted(() => {
+		getDataFuction()
+	})
 
 	watch(id, getDataFuction)
 
 	return {
-		post,
+		result,
 		error,
 	}
 }

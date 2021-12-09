@@ -1,10 +1,19 @@
 <template>
-	<div v-if="postData">
-		<div>{{ postData._id }}</div>
-		<div>{{ postData.title }}</div>
-		<div>{{ postData.writer }}</div>
-		<div>{{ postData.createDate }}</div>
-		<div>{{ postData.body }}</div>
+	<div class="post">
+		<div class="header">
+			<div class="writer">{{ postData.writer }}</div>
+			<div class="createDate">{{ postData.createDate }}</div>
+		</div>
+		<div class="content">
+			<div class="content-header">
+				<div class="title">{{ postData.title }}</div>
+			</div>
+			<div class="content-body">
+				<div class="body">{{ postData.body }}</div>
+			</div>
+		</div>
+
+		<div class="createDate"></div>
 	</div>
 </template>
 
